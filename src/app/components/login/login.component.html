@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row margin-top-10">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <form class="form-bordered" role="form" (ngSubmit)="loginUser()">
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Password"  required>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6" *ngIf="showRememberMe">
+                            <input type="checkbox" [(ngModel)]="user.remember" name="remember">&nbsp; Remember me
+                        </div>
+                        <div class="col-sm-6">
+                            <a routerLink="/forget-password" class="pull-right">Forget Password ?</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
