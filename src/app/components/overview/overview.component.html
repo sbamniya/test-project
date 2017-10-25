@@ -1,0 +1,122 @@
+<div class="container-fluid">
+    <div class="row margin-top-2">
+        <div class="col-sm-12">
+            <button class="btn btn-default pull-right" (click)="logout()">Logout !</button>
+        </div>
+        <div class="clearfix"></div>
+        <br /><br />
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sr. Number</th>
+                            <th>Name</th>
+                            <th>Starting Date</th>
+                            <th>Delivery Date</th>
+                            <th>Created By</th>
+                            <th>Created On</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let overview of overviews; let i = index" oncontextmenu="return false" on-contextmenu="onRightClick($event, i)" style="cursor: pointer">
+                            <td (click)="getTasks(overview.overviewId, i)">{{i +  1}}</td>
+                            <td>{{ overview.overviewName }}</td>
+                            <td>{{ overview.startingDate }}</td>
+                            <td>{{ overview.dueDate }}</td>
+                            <td  style="position: relative">
+                                {{ overview.createdBy }}
+                                <div class="popover fade bottom in" role="tooltip" id="popover857058" style="top: 55%; left: 45%;display: block" *ngIf="showOverView[i]">
+                                    <div class="arrow" style="left: 50%;"></div>
+                                    <div class="popover-content">
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><a href="javascript:;">Print <i class="fa fa-print pull-right" aria-hidden="true"></i></a></li>
+                                            <li class="list-group-item" (click)="addOverViewTask($event, overview.overviewId, i)"><a href="javascript:;">Add <i class="fa fa-bars pull-right" aria-hidden="true"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="popover fade bottom in" role="tooltip" id="popover857058" style="top: 55%; left: -55%;display: block; width: 20em" *ngIf="showOverViewTaskForm[i]">
+                                        <div class="arrow" style="left: 50%;"></div>
+                                        <div class="popover-content">
+                                            <form class="form" role="form" (ngSubmit)="addTask(i)">
+                                                <div class="form-grouop">
+                                                    <label>Task Name</label>
+                                                    <input type="text" class="form-control" name="taskName" [(ngModel)]="overviewTask.taskName" placeholder="Task Name.."/>
+                                                </div>
+                                                <div class="form-grouop">
+                                                    <label>Tags</label>
+                                                    <tag-input [(ngModel)]="overviewTask.tags" name="tags" placeholder="Enter tag"></tag-input>
+                                                </div>
+                                                <div class="form-grouop">
+                                                    <label>Description</label>
+                                                    <textarea name="text" [(ngModel)]="overviewTask.description" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-grouop">
+                                                    <label>Responsible User</label>
+                                                    <select name="responsibleUser" [(ngModel)]="overviewTask.responsibleUser" class="form-control">
+                                                        <option value="">Select User</option>
+                                                        <option *ngFor="let user of users" value="{{user.userId}}">{{user.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-grouop">
+                                                    <label>Task Deadline</label>
+                                                   <input type="date" name="taskDueDate" [(ngModel)]="overviewTask.taskDueDate" class="form-control"/>
+                                                    <!--  -->
+                                                </div>
+                                                <div class="form-grouop">
+                                                    <label>Task Priority</label>
+                                                    <select class="form-control" [(ngModel)]='overviewTask.priority' name="priority">
+                                                        <option value="low">Low</option>
+                                                        <option value="medium">Medium</option>
+                                                        <option value="high">High</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-grouop">
+                                                    <label>Meta Value</label>
+                                                    <input type="number" class="form-control" name="randomNumber" [(ngModel)]='overviewTask.randomNumber' disabled/>
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary" [disabled]="!overviewTask.taskDueDate || !overviewTask.responsibleUser || !overviewTask.tags || !overviewTask.description || !overviewTask.taskName || addingTask"><span *ngIf="!addingTask">Add</span><span *ngIf="addingTask">Adding</span></button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-default" (click)="cancelEdit(i)">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </td>
+                            <td>{{ overview.createdAt }}</td>
+                            <td>{{ overview.status }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Tags</th>
+                            <th>Description</th>
+                            <th>Responsible User</th>
+                            <th>Task Due Date</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of tasks">
+                            <td>{{task.taskName}}</td>
+                            <td>{{task.tags}}</td>
+                            <td>{{task.description}}</td>
+                            <td>{{task.responsibleUser}}</td>
+                            <td>{{task.taskDueDate}}</td>
+                            <td>{{task.priority}}</td>
+                        </tr>
+                        <tr *ngIf="tasks.length<=0">
+                            <td colspan="6" class="text-center">No Task Found !</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

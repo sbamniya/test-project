@@ -1,0 +1,7 @@
+.margin-top-10{
+    margin-top: 10%;
+}
+.form-bordered{
+    padding: 1em;
+    border: 1px solid rgb(184, 152, 152);
+}

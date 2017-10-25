@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row margin-top-10">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <form class="form-bordered" role="form" (ngSubmit)="sendResetLink()">
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <a routerLink="/login">Back to login</a>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary" [(disabled)]="!user.email">Send Link</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
